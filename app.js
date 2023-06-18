@@ -127,7 +127,7 @@ app.get("/api/v1/users/success", async (req, res) => {
 app.get("/api/v1/user/:name", async (req, res) => {
   try {
     const data = req.query;
-    const result = await User.findfind({ name: /.*m.*/ });
+    const result = await User.findfind({ name: /.*${data}.*/ });
     res.status(200).json({
       status: "success",
       massage: "Updated Success field",
