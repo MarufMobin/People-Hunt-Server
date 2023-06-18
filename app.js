@@ -123,25 +123,24 @@ app.get("/api/v1/users/success", async (req, res) => {
   }
 });
 
-// user dynamic search
-app.get("/api/v1/user/:name", async (req, res) => {
+// delete api
+app.post("/api/v1/users/delete", async (req, res) => {
   try {
-    const data = req.query;
-    const result = await User.findfind({ name: /.*${data}.*/ });
+    console.log(req.body);
+    const id = req.body;
+    const data = await User.deleteOne({ _id: new ObjectId(id) });
     res.status(200).json({
       status: "success",
-      massage: "Updated Success field",
-      data: result,
+      massage: "Delete User Successfully",
+      data: data,
     });
-    console.log(success);
   } catch (err) {
     console.log(err);
     res.status(400).json({
       status: "failed",
-      message: "User was not updated",
+      message: "User are not deleted",
       error: err,
     });
   }
 });
-
 module.exports = app;
